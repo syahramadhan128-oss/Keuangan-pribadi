@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 512 512">
+
+  <!-- Background -->
+  <rect
+    x="0"
+    y="0"
+    width="512"
+    height="512"
+    rx="100"
+    fill="#16a34a"/>
+
+  <!-- Wallet -->
+  <rect
+    x="90"
+    y="150"
+    width="330"
+    height="220"
+    rx="35"
+    fill="#ffffff"/>
+
+  <rect
+    x="90"
+    y="190"
+    width="330"
+    height="60"
+    fill="#dcfce7"/>
+
+  <!-- Wallet Button -->
+  <circle
+    cx="360"
+    cy="220"
+    r="10"
+    fill="#16a34a"/>
+
+  <!-- Growth Chart -->
+  <polyline
+    points="150,310 220,260 270,280 350,200"
+    fill="none"
+    stroke="#16a34a"
+    stroke-width="18"
+    stroke-linecap="round"
+    stroke-linejoin="round"/>
+
+  <!-- Arrow Head -->
+  <polygon
+    points="350,200 335,185 385,180"
+    fill="#16a34a"/>
+
+  <!-- Rupiah Symbol -->
+  <text
+    x="135"
+    y="245"
+    font-size="58"
+    font-family="Arial"
+    font-weight="bold"
+    fill="#15803d">
+    Rp
+  </text>
+
+</svg>
