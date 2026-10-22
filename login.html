@@ -1,67 +1,71 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Login Admin</title>
+    <title>Login Admin</title>
 
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#16a34a">
+    <link rel="manifest" href="manifest.json">
 
-<link rel="stylesheet" href="assets/css/style.css">
+    <meta name="theme-color" content="#16a34a">
 
-<style>
+    <link rel="stylesheet" href="assets/css/style.css">
 
-.login-page{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
+    <style>
 
-.login-card{
-    width:100%;
-    max-width:400px;
-}
+    .login-page{
+        min-height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        padding:20px;
+    }
 
-.logo{
-    text-align:center;
-    margin-bottom:20px;
-}
+    .login-card{
+        width:100%;
+        max-width:420px;
+    }
 
-.logo img{
-    width:100px;
-    height:100px;
-    object-fit:contain;
-}
+    .logo{
+        text-align:center;
+        margin-bottom:25px;
+    }
 
-.logo h1{
-    color:#16a34a;
-    margin-top:10px;
-}
+    .logo img{
+        width:100px;
+        height:100px;
+        object-fit:cover;
+        border-radius:24px;
+    }
 
-.password-wrapper{
-    position:relative;
-}
+    .logo h1{
+        color:#16a34a;
+        margin-top:10px;
+    }
 
-.password-wrapper button{
-    position:absolute;
-    right:8px;
-    top:50%;
-    transform:translateY(-50%);
-    width:auto;
-    padding:8px 12px;
-    background:#e5e7eb;
-    color:#111827;
-}
+    .password-wrapper{
+        position:relative;
+    }
 
-.dark .password-wrapper button{
-    background:#374151;
-    color:white;
-}
+    .password-wrapper button{
+        position:absolute;
+        right:10px;
+        top:50%;
+        transform:translateY(-50%);
+        width:auto;
+        padding:8px 12px;
+    }
 
-</style>
+    .login-actions{
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+        margin-top:15px;
+    }
+
+    </style>
 
 </head>
 
@@ -69,162 +73,185 @@
 
 <div class="login-page">
 
-<div class="card login-card">
+    <div class="card login-card">
 
-<div class="logo">
+        <div class="logo">
 
-<img
-src="assets/icons/icon-192.png"
-alt="Logo">
+            Icons/icon-192.png
 
-<h1>Keuangan Pribadi</h1>
+            <h1>Keuangan Pribadi</h1>
 
-<p>Login Admin</p>
+            <p>Login Administrator</p>
+
+        </div>
+
+        <label>PIN Admin</label>
+
+        <div class="password-wrapper">
+
+            <input
+                type="password"
+                id="pinLogin"
+                placeholder="Masukkan PIN Admin">
+
+            <button
+                type="button"
+                class="btn btn-info"
+                onclick="togglePIN()">
+
+                👁
+
+            </button>
+
+        </div>
+
+        <div class="login-actions">
+
+            <button
+                class="btn btn-primary btn-full"
+                onclick="login()">
+
+                🔐 Login
+
+            </button>
+
+            <button
+                class="btn btn-info btn-full"
+                onclick="toggleDarkMode()">
+
+                🌙 Dark Mode
+
+            </button>
+
+            <button
+                class="btn btn-warning btn-full"
+                onclick="location.href='index.html'">
+
+                🏠 Kembali ke Dashboard
+
+            </button>
+
+        </div>
+
+        <div
+            id="loginStatus"
+            class="status">
+
+        </div>
+
+    </div>
 
 </div>
 
-<label>PIN Admin</label>
-
-<div class="password-wrapper">
-
-<input
-type="password"
-id="pinLogin"
-placeholder="Masukkan PIN Admin">
-
-<button
-type="button"
-onclick="togglePIN()">
-👁
-</button>
-
-</div>
-
-<button
-class="btn btn-primary btn-full"
-onclick="login()">
-
-🔐 Login
-
-</button>
-
-<br><br>
-
-<button
-class="btn btn-info btn-full"
-onclick="toggleDarkMode()">
-
-🌙 Dark Mode
-
-</button>
-
-<div
-id="loginStatus"
-class="status">
-
-</div>
-
-</div>
-
-</div>
-
-<script src="assets/js/storage.js"></script>
-<script src="assets/js/app.js"></script>
-<script src="assets/js/auth.js"></script>
+assets/js/storage.jsscript>
+assets/js/app.jsscript>
+assets/js/auth.jsscript>
 
 <script>
 
 function togglePIN(){
 
-const input =
-document.getElementById(
-"pinLogin"
-);
+    const input =
+    document.getElementById(
+        "pinLogin"
+    );
 
-if(input.type==="password"){
-
-input.type="text";
-
-}else{
-
-input.type="password";
-
-}
+    input.type =
+    input.type === "password"
+    ? "text"
+    : "password";
 
 }
 
 function login(){
 
-const pin =
-document.getElementById(
-"pinLogin"
-).value;
+    const pin =
+    document.getElementById(
+        "pinLogin"
+    ).value.trim();
 
-const status =
-document.getElementById(
-"loginStatus"
-);
+    const status =
+    document.getElementById(
+        "loginStatus"
+    );
 
-if(!pin){
+    if(!getPIN()){
 
-status.style.color="red";
-status.innerHTML=
-"Masukkan PIN terlebih dahulu";
+        status.style.color="red";
 
-return;
+        status.innerHTML =
+        "❌ PIN Admin belum dibuat. Silakan buat PIN di menu Profil.";
 
-}
+        return;
 
-if(verifyPIN(pin)){
+    }
 
-loginAdmin();
+    if(!pin){
 
-status.style.color=
-"green";
+        status.style.color="red";
 
-status.innerHTML=
-"✅ Login berhasil";
+        status.innerHTML =
+        "❌ Masukkan PIN terlebih dahulu";
 
-setTimeout(()=>{
+        return;
 
-window.location.href =
-"transaksi.html";
+    }
 
-},1000);
+    if(verifyPIN(pin)){
 
-}else{
+        loginAdmin();
 
-status.style.color=
-"red";
+        status.style.color="#16a34a";
 
-status.innerHTML=
-"❌ PIN salah";
+        status.innerHTML =
+        "✅ Login berhasil";
 
-}
+        setTimeout(() => {
+
+            location.href =
+            "transaksi.html";
+
+        },800);
+
+    }else{
+
+        status.style.color="#dc2626";
+
+        status.innerHTML =
+        "❌ PIN salah";
+
+    }
 
 }
 
 document
 .getElementById("pinLogin")
 .addEventListener(
-"keypress",
-function(e){
+    "keypress",
+    function(e){
 
-if(e.key==="Enter"){
-login();
-}
+        if(e.key==="Enter"){
 
-}
+            login();
+
+        }
+
+    }
 );
 
-if(isAdminLoggedIn()){
+if(
+    typeof isAdminLoggedIn ===
+    "function" &&
+    isAdminLoggedIn()
+){
 
-window.location.href =
-"transaksi.html";
+    location.href =
+    "transaksi.html";
 
 }
 
 </script>
 
 </body>
+
 </html>
