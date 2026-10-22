@@ -1,17 +1,18 @@
 /*
 =========================================
-Service Worker
+SERVICE WORKER
 Keuangan Pribadi PWA
 =========================================
 */
 
-const CACHE_NAME = "keuangan-pribadi-v1";
+const CACHE_NAME = "keuangan-pribadi-v2";
 
-const FILES_TO_CACHE = [
+const APP_ASSETS = [
 
     "./",
 
     "./index.html",
+    "./login.html",
     "./transaksi.html",
     "./laporan.html",
     "./profil.html",
@@ -28,13 +29,7 @@ const FILES_TO_CACHE = [
     "./assets/js/laporan.js",
     "./assets/js/profil.js",
 
-    "./assets/icons/icon-72.png",
-    "./assets/icons/icon-96.png",
-    "./assets/icons/icon-128.png",
-    "./assets/icons/icon-144.png",
-    "./assets/icons/icon-152.png",
     "./assets/icons/icon-192.png",
-    "./assets/icons/icon-384.png",
     "./assets/icons/icon-512.png"
 
 ];
@@ -53,11 +48,11 @@ self.addEventListener("install", event => {
         .then(cache => {
 
             console.log(
-                "Cache dibuat"
+                "✅ Cache Dibuat"
             );
 
             return cache.addAll(
-                FILES_TO_CACHE
+                APP_ASSETS
             );
 
         })
@@ -85,10 +80,12 @@ self.addEventListener("activate", event => {
 
                 keys.map(key => {
 
-                    if(key !== CACHE_NAME){
+                    if(
+                        key !== CACHE_NAME
+                    ){
 
                         console.log(
-                            "Menghapus cache lama:",
+                            "🗑 Menghapus Cache Lama:",
                             key
                         );
 
@@ -113,6 +110,7 @@ self.addEventListener("activate", event => {
 /*
 =========================================
 FETCH
+CACHE FIRST
 =========================================
 */
 
@@ -130,11 +128,11 @@ self.addEventListener("fetch", event => {
             event.request
         )
 
-        .then(response => {
+        .then(cacheResponse => {
 
-            if(response){
+            if(cacheResponse){
 
-                return response;
+                return cacheResponse;
 
             }
 
@@ -144,7 +142,16 @@ self.addEventListener("fetch", event => {
 
             .then(networkResponse => {
 
-                const responseClone =
+                if(
+                    !networkResponse ||
+                    networkResponse.status !== 200
+                ){
+
+                    return networkResponse;
+
+                }
+
+                const cloned =
                 networkResponse.clone();
 
                 caches.open(
@@ -155,7 +162,7 @@ self.addEventListener("fetch", event => {
 
                     cache.put(
                         event.request,
-                        responseClone
+                        cloned
                     );
 
                 });
@@ -187,24 +194,6 @@ self.addEventListener("fetch", event => {
 
 /*
 =========================================
-BACKGROUND SYNC
-=========================================
-*/
-
-self.addEventListener(
-    "sync",
-    event => {
-
-        console.log(
-            "Background Sync:",
-            event.tag
-        );
-
-    }
-);
-
-/*
-=========================================
 PUSH NOTIFICATION
 =========================================
 */
@@ -219,19 +208,23 @@ self.addEventListener(
         const options = {
 
             body:
-            "Jangan lupa catat transaksi hari ini 📊",
+            "Jangan lupa mencatat transaksi hari ini 📊",
 
             icon:
             "./assets/icons/icon-192.png",
 
             badge:
-            "./assets/icons/icon-192.png"
+            "./assets/icons/icon-192.png",
+
+            vibrate:
+            [200,100,200]
 
         };
 
         event.waitUntil(
 
-            self.registration.showNotification(
+            self.registration
+            .showNotification(
                 title,
                 options
             )
@@ -259,6 +252,24 @@ self.addEventListener(
                 "./index.html"
             )
 
+        );
+
+    }
+);
+
+/*
+=========================================
+BACKGROUND SYNC
+=========================================
+*/
+
+self.addEventListener(
+    "sync",
+    event => {
+
+        console.log(
+            "🔄 Sync:",
+            event.tag
         );
 
     }
