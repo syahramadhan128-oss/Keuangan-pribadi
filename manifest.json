@@ -1,71 +1,42 @@
 {
-  "id": "/",
+  "id": "./",
   "name": "Keuangan Pribadi",
   "short_name": "Keuangan",
-  "description": "Aplikasi pencatatan keuangan pribadi berbasis Local Storage dan Progressive Web App.",
+  "description": "Aplikasi pencatatan, monitoring, dan analisis keuangan pribadi berbasis Progressive Web App (PWA).",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
+  "lang": "id-ID",
   "background_color": "#f0fdf4",
   "theme_color": "#16a34a",
-  "categories": [
-    "finance",
-    "productivity"
-  ],
-  "lang": "id",
+
   "icons": [
     {
-      "src": "assets/icons/icon-72.png",
-      "sizes": "72x72",
-      "type": "image/png"
-    },
-    {
-      "src": "assets/icons/icon-96.png",
-      "sizes": "96x96",
-      "type": "image/png"
-    },
-    {
-      "src": "assets/icons/icon-128.png",
-      "sizes": "128x128",
-      "type": "image/png"
-    },
-    {
-      "src": "assets/icons/icon-144.png",
-      "sizes": "144x144",
-      "type": "image/png"
-    },
-    {
-      "src": "assets/icons/icon-152.png",
-      "sizes": "152x152",
-      "type": "image/png"
-    },
-    {
-      "src": "assets/icons/icon-192.png",
+      "src": "./assets/icons/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "assets/icons/icon-384.png",
-      "sizes": "384x384",
-      "type": "image/png"
-    },
-    {
-      "src": "assets/icons/icon-512.png",
+      "src": "./assets/icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
+
   "shortcuts": [
     {
       "name": "Tambah Transaksi",
       "short_name": "Transaksi",
       "description": "Tambah transaksi baru",
-      "url": "transaksi.html",
+      "url": "./transaksi.html",
       "icons": [
         {
-          "src": "assets/icons/icon-192.png",
-          "sizes": "192x192"
+          "src": "./assets/icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
         }
       ]
     },
@@ -73,13 +44,43 @@
       "name": "Laporan",
       "short_name": "Laporan",
       "description": "Lihat laporan keuangan",
-      "url": "laporan.html",
+      "url": "./laporan.html",
       "icons": [
         {
-          "src": "assets/icons/icon-192.png",
-          "sizes": "192x192"
+          "src": "./assets/icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
         }
       ]
+    },
+    {
+      "name": "Profil",
+      "short_name": "Profil",
+      "description": "Kelola profil dan pengaturan",
+      "url": "./profil.html",
+      "icons": [
+        {
+          "src": "./assets/icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+
+  "screenshots": [
+    {
+      "src": "./assets/screenshots/dashboard.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Dashboard Keuangan"
+    },
+    {
+      "src": "./assets/screenshots/transaksi.png",
+      "sizes": "720x1280",
+      "type": "image/png",
+      "label": "Input Transaksi"
     }
   ]
 }
