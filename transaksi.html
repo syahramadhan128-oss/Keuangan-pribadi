@@ -1,582 +1,237 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tambah Transaksi</title>
+    <title>Tambah Transaksi</title>
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#16a34a">
 
-body{
-background:#f0fdf4;
-padding:15px;
-padding-bottom:100px;
-}
-
-.container{
-max-width:900px;
-margin:auto;
-}
-
-.header{
-text-align:center;
-margin-bottom:20px;
-}
-
-.header h1{
-color:#16a34a;
-}
-
-.card{
-background:#fff;
-padding:20px;
-border-radius:15px;
-box-shadow:0 2px 10px rgba(0,0,0,.1);
-margin-bottom:15px;
-}
-
-.info{
-background:#dcfce7;
-padding:12px;
-border-radius:10px;
-color:#166534;
-margin-bottom:15px;
-}
-
-label{
-display:block;
-margin-top:10px;
-margin-bottom:5px;
-font-weight:bold;
-}
-
-input,
-select,
-textarea{
-width:100%;
-padding:12px;
-border:1px solid #ddd;
-border-radius:10px;
-font-size:15px;
-}
-
-textarea{
-height:90px;
-resize:none;
-}
-
-button{
-padding:12px;
-border:none;
-border-radius:10px;
-background:#16a34a;
-color:white;
-font-weight:bold;
-cursor:pointer;
-}
-
-button:hover{
-background:#15803d;
-}
-
-.submit-btn{
-width:100%;
-margin-top:15px;
-}
-
-.edit-btn{
-background:#2563eb;
-margin-right:5px;
-}
-
-.delete-btn{
-background:#dc2626;
-}
-
-.edit-btn:hover{
-background:#1d4ed8;
-}
-
-.delete-btn:hover{
-background:#b91c1c;
-}
-
-#status{
-margin-top:15px;
-text-align:center;
-font-weight:bold;
-}
-
-.tx-item{
-background:#f8fafc;
-padding:12px;
-border-radius:10px;
-margin-top:10px;
-border-left:5px solid #16a34a;
-}
-
-.tx-header{
-display:flex;
-justify-content:space-between;
-margin-bottom:5px;
-}
-
-.badge-masuk{
-background:#dcfce7;
-color:#166534;
-padding:4px 8px;
-border-radius:20px;
-font-size:12px;
-}
-
-.badge-keluar{
-background:#fee2e2;
-color:#991b1b;
-padding:4px 8px;
-border-radius:20px;
-font-size:12px;
-}
-
-.tx-action{
-margin-top:10px;
-}
-
-.bottom-nav{
-position:fixed;
-left:0;
-right:0;
-bottom:0;
-background:#fff;
-display:flex;
-justify-content:space-around;
-padding:12px;
-box-shadow:0 -2px 10px rgba(0,0,0,.1);
-z-index:999;
-}
-
-.bottom-nav a{
-text-decoration:none;
-color:#444;
-font-size:14px;
-text-align:center;
-}
-
-.active{
-color:#16a34a !important;
-font-weight:bold;
-}
-
-@media(max-width:600px){
-
-.tx-header{
-flex-direction:column;
-gap:5px;
-}
-
-}
-</style>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
 
 <div class="container">
 
-<div class="header">
-<h1>➕ Tambah Transaksi</h1>
+    <div class="header">
+        <h1>➕ Tambah Transaksi</h1>
+        <p>Kelola pemasukan dan pengeluaran</p>
+    </div>
+
+    <!-- Statistik -->
+
+    <div class="card">
+
+        <h3>📊 Statistik</h3>
+
+        <p>
+            Total Transaksi :
+            <b id="jumlahTransaksi">0</b>
+        </p>
+
+    </div>
+
+    <!-- Form -->
+
+    <div class="card">
+
+        <div class="info-box">
+
+            Masukkan transaksi pemasukan atau pengeluaran.
+
+        </div>
+
+        <form id="formTransaksi">
+
+            <label>Tanggal</label>
+
+            <input
+                type="date"
+                id="tanggal"
+                required>
+
+            <label>Jenis Transaksi</label>
+
+            <select id="jenis">
+
+                <option value="Masuk">
+                    📈 Pemasukan
+                </option>
+
+                <option value="Keluar">
+                    📉 Pengeluaran
+                </option>
+
+            </select>
+
+            <label>Kategori</label>
+
+            <select id="kategori"></select>
+
+            <label>Deskripsi</label>
+
+            <textarea
+                id="deskripsi"
+                placeholder="Contoh: Gaji Bulanan"></textarea>
+
+            <label>Nominal</label>
+
+            <input
+                type="number"
+                id="nominal"
+                min="1"
+                required
+                placeholder="Masukkan nominal">
+
+            <button
+                type="submit"
+                class="btn btn-primary btn-full">
+
+                💾 Simpan Transaksi
+
+            </button>
+
+            <!-- Mode Edit -->
+
+            <div
+                id="editActions"
+                style="display:none;margin-top:10px;">
+
+                <button
+                    type="button"
+                    class="btn btn-info btn-full"
+                    onclick="updateTransaksi()">
+
+                    ✏️ Update Transaksi
+
+                </button>
+
+                <br><br>
+
+                <button
+                    type="button"
+                    class="btn btn-danger btn-full"
+                    onclick="hapusTransaksiForm()">
+
+                    🗑 Hapus Transaksi
+
+                </button>
+
+                <br><br>
+
+                <button
+                    type="button"
+                    class="btn btn-warning btn-full"
+                    onclick="batalEdit()">
+
+                    ❌ Batal Edit
+
+                </button>
+
+            </div>
+
+        </form>
+
+        <div
+            id="status"
+            class="status"></div>
+
+    </div>
+
+    <!-- Search -->
+
+    <div class="card">
+
+        <h3>🔍 Cari Transaksi</h3>
+
+        <input
+            type="text"
+            id="searchTransaksi"
+            placeholder="Cari kategori atau deskripsi...">
+
+    </div>
+
+    <!-- Daftar -->
+
+    <div class="card">
+
+        <h3>📋 Daftar Transaksi</h3>
+
+        <p style="margin-bottom:10px;">
+            Klik transaksi untuk mengedit.
+        </p>
+
+        <div id="daftarTransaksi">
+
+            Belum ada transaksi
+
+        </div>
+
+    </div>
+
 </div>
 
-<div class="card">
-
-<div class="info">
-Masukkan transaksi pemasukan atau pengeluaran.
-</div>
-
-<form id="formTransaksi">
-
-<label>Tanggal</label>
-<input type="date" id="tanggal" required>
-
-<label>Jenis Transaksi</label>
-<select id="jenis">
-<option value="Masuk">📈 Pemasukan</option>
-<option value="Keluar">📉 Pengeluaran</option>
-</select>
-
-<label>Kategori</label>
-<select id="kategori"></select>
-
-<label>Deskripsi</label>
-<textarea
-id="deskripsi"
-placeholder="Contoh: Gaji Bulanan">
-</textarea>
-
-<label>Nominal</label>
-<input
-type="number"
-id="nominal"
-required
-min="1"
-placeholder="Masukkan nominal">
-
-<button
-type="submit"
-class="submit-btn">
-💾 Simpan Transaksi
-</button>
-
-</form>
-
-<div id="status"></div>
-
-</div>
-
-<div class="card">
-
-<h3>📋 Daftar Transaksi</h3>
-
-<div id="daftarTransaksi"></div>
-
-</div>
-
-</div>
+<!-- Bottom Navigation -->
 
 <div class="bottom-nav">
 
-<a href="index.html">
-🏠<br>Dashboard
-</a>
+    <a href="index.html">
+        🏠
+        <br>
+        Dashboard
+    </a>
 
-<a href="transaksi.html" class="active">
-➕<br>Transaksi
-</a>
+    <a href="transaksi.html" class="active">
+        ➕
+        <br>
+        Transaksi
+    </a>
 
-<a href="laporan.html">
-📊<br>Laporan
-</a>
+    <a href="laporan.html">
+        📊
+        <br>
+        Laporan
+    </a>
 
-<a href="profil.html">
-⚙️<br>Profil
-</a>
+    <a href="profil.html">
+        ⚙️
+        <br>
+        Profil
+    </a>
 
 </div>
+
+<!-- Javascript -->
+
+<script src="assets/js/storage.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/transaksi.js"></script>
+
+<!-- Service Worker -->
 
 <script>
 
-const kategoriMasuk = [
-"Gaji",
-"Bonus",
-"THR",
-"Freelance",
-"Investasi",
-"Income Lain"
-];
+if ("serviceWorker" in navigatorster("./sw.js")
+            .then(() => {
+                console.log(
+                    "✅ Service Worker Registered"
+                );
+            })
+            .catch(error => {
+                console.error(error);
+            });
 
-const kategoriKeluar = [
-"Tagihan Rumah",
-"Kebutuhan Harian",
-"Cicilan Rumah",
-"Keperluan Pribadi",
-"Kendaraan",
-"Medical",
-"Keperluan Bayi"
-];
-
-function getData(){
-return JSON.parse(
-localStorage.getItem("transaksi")
-) || [];
-}
-
-function saveData(data){
-localStorage.setItem(
-"transaksi",
-JSON.stringify(data)
-);
-}
-
-function rupiah(n){
-return "Rp " +
-Number(n || 0)
-.toLocaleString("id-ID");
-}
-
-function loadKategori(){
-
-const jenis =
-document.getElementById("jenis").value;
-
-const kategori =
-document.getElementById("kategori");
-
-kategori.innerHTML = "";
-
-const list =
-jenis === "Masuk"
-? kategoriMasuk
-: kategoriKeluar;
-
-list.forEach(item=>{
-
-const option =
-document.createElement("option");
-
-option.value = item;
-option.textContent = item;
-
-kategori.appendChild(option);
-
-});
+    });
 
 }
-
-function setTanggalHariIni(){
-
-document.getElementById("tanggal").value =
-new Date()
-.toISOString()
-.split("T")[0];
-
-}
-
-function tampilkanTransaksi(){
-
-const container =
-document.getElementById("daftarTransaksi");
-
-let data = getData();
-
-if(data.length === 0){
-
-container.innerHTML =
-"<p>Belum ada transaksi.</p>";
-
-return;
-
-}
-
-data = [...data].reverse();
-
-container.innerHTML =
-data.map(item => `
-
-<div class="tx-item">
-
-<div class="tx-header">
-
-<div>
-<b>${item.kategori}</b>
-</div>
-
-<div>
-<span class="${
-item.jenis === 'Masuk'
-? 'badge-masuk'
-: 'badge-keluar'
-}">
-${item.jenis}
-</span>
-</div>
-
-</div>
-
-<div>${item.tanggal}</div>
-
-<div>${item.deskripsi || '-'}</div>
-
-<div style="margin-top:6px;font-weight:bold;">
-${rupiah(item.nominal)}
-</div>
-
-<div class="tx-action">
-
-<button
-class="edit-btn"
-onclick="editTransaksi(${item.id})">
-✏️ Edit
-</button>
-
-<button
-class="delete-btn"
-onclick="hapusTransaksi(${item.id})">
-🗑 Hapus
-</button>
-
-</div>
-
-</div>
-
-`).join("");
-
-}
-
-function hapusTransaksi(id){
-
-if(
-!confirm(
-"Yakin ingin menghapus transaksi ini?"
-)
-){
-return;
-}
-
-let data = getData();
-
-data = data.filter(
-item => item.id !== id
-);
-
-saveData(data);
-
-tampilkanTransaksi();
-
-}
-
-function editTransaksi(id){
-
-const data =
-getData();
-
-const item =
-data.find(
-trx => trx.id === id
-);
-
-if(!item) return;
-
-document.getElementById("tanggal").value =
-item.tanggal;
-
-document.getElementById("jenis").value =
-item.jenis;
-
-loadKategori();
-
-document.getElementById("kategori").value =
-item.kategori;
-
-document.getElementById("deskripsi").value =
-item.deskripsi;
-
-document.getElementById("nominal").value =
-item.nominal;
-
-localStorage.setItem(
-"editId",
-id
-);
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-}
-
-document
-.getElementById("jenis")
-.addEventListener(
-"change",
-loadKategori
-);
-
-document
-.getElementById("formTransaksi")
-.addEventListener(
-"submit",
-function(e){
-
-e.preventDefault();
-
-const status =
-document.getElementById("status");
-
-const transaksi = {
-
-id: Date.now(),
-
-tanggal:
-document.getElementById("tanggal").value,
-
-jenis:
-document.getElementById("jenis").value,
-
-kategori:
-document.getElementById("kategori").value,
-
-deskripsi:
-document.getElementById("deskripsi").value,
-
-nominal:
-Number(
-document.getElementById("nominal").value
-)
-
-};
-
-let data = getData();
-
-const editId =
-localStorage.getItem("editId");
-
-if(editId){
-
-const index =
-data.findIndex(
-item => item.id == editId
-);
-
-data[index] = {
-...transaksi,
-id:Number(editId)
-};
-
-localStorage.removeItem(
-"editId"
-);
-
-status.style.color = "orange";
-status.innerHTML =
-"✅ Transaksi berhasil diperbarui";
-
-}else{
-
-data.push(transaksi);
-
-status.style.color = "green";
-status.innerHTML =
-"✅ Transaksi berhasil disimpan";
-
-}
-
-saveData(data);
-
-document
-.getElementById("formTransaksi")
-.reset();
-
-setTanggalHariIni();
-loadKategori();
-tampilkanTransaksi();
-
-setTimeout(()=>{
-status.innerHTML = "";
-},2000);
-
-});
-
-setTanggalHariIni();
-loadKategori();
-tampilkanTransaksi();
 
 </script>
 
 </body>
+
 </html>
