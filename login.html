@@ -5,252 +5,259 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login Admin</title>
+    <title>Login Admin - Keuangan Pribadi</title>
 
     <link rel="manifest" href="manifest.json">
-
     <meta name="theme-color" content="#16a34a">
 
     <link rel="stylesheet" href="assets/css/style.css">
 
     <style>
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-    .login-page{
-        min-height:100vh;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        padding:20px;
-    }
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+        }
 
-    .login-card{
-        width:100%;
-        max-width:420px;
-    }
+        .logo {
+            text-align: center;
+            margin-bottom: 25px;
+        }
 
-    .logo{
-        text-align:center;
-        margin-bottom:25px;
-    }
+        .logo img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 24px;
+        }
 
-    .logo img{
-        width:100px;
-        height:100px;
-        object-fit:cover;
-        border-radius:24px;
-    }
+        .logo h1 {
+            color: #16a34a;
+            margin-top: 12px;
+        }
 
-    .logo h1{
-        color:#16a34a;
-        margin-top:10px;
-    }
+        .logo p {
+            color: #666;
+        }
 
-    .password-wrapper{
-        position:relative;
-    }
+        .password-wrapper {
+            position: relative;
+        }
 
-    .password-wrapper button{
-        position:absolute;
-        right:10px;
-        top:50%;
-        transform:translateY(-50%);
-        width:auto;
-        padding:8px 12px;
-    }
+        .password-wrapper button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: auto;
+            padding: 8px 12px;
+        }
 
-    .login-actions{
-        display:flex;
-        flex-direction:column;
-        gap:10px;
-        margin-top:15px;
-    }
+        .login-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
 
+        #loginStatus {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
     </style>
 
 </head>
 
 <body>
 
-<div class="login-page">
+    <div class="login-page">
 
-    <div class="card login-card">
+        <div class="card login-card">
 
-        <div class="logo">
+            <div class="logo">
 
-            Icons/icon-192.png
+                <img
+                    src="icons/icon-192.png"
+                    alt="Logo Keuangan Pribadi">
 
-            <h1>Keuangan Pribadi</h1>
+                <h1>💰 Keuangan Pribadi</h1>
 
-            <p>Login Administrator</p>
+                <p>Login Administrator</p>
 
-        </div>
+            </div>
 
-        <label>PIN Admin</label>
+            <label>PIN Admin</label>
 
-        <div class="password-wrapper">
+            <div class="password-wrapper">
 
-            <input
-                type="password"
-                id="pinLogin"
-                placeholder="Masukkan PIN Admin">
+                <input
+                    type="password"
+                    id="pinLogin"
+                    placeholder="Masukkan PIN Admin">
 
-            <button
-                type="button"
-                class="btn btn-info"
-                onclick="togglePIN()">
+                <button
+                    type="button"
+                    class="btn btn-info"
+                    onclick="togglePIN()">
 
-                👁
+                    👁
 
-            </button>
+                </button>
 
-        </div>
+            </div>
 
-        <div class="login-actions">
+            <div class="login-actions">
 
-            <button
-                class="btn btn-primary btn-full"
-                onclick="login()">
+                <button
+                    class="btn btn-primary btn-full"
+                    onclick="login()">
 
-                🔐 Login
+                    🔐 Login
 
-            </button>
+                </button>
 
-            <button
-                class="btn btn-info btn-full"
-                onclick="toggleDarkMode()">
+                <button
+                    class="btn btn-info btn-full"
+                    onclick="toggleDarkMode()">
 
-                🌙 Dark Mode
+                    🌙 Dark Mode
 
-            </button>
+                </button>
 
-            <button
-                class="btn btn-warning btn-full"
-                onclick="location.href='index.html'">
+                <button
+                    class="btn btn-warning btn-full"
+                    onclick="location.href='index.html'">
 
-                🏠 Kembali ke Dashboard
+                    🏠 Dashboard
 
-            </button>
+                </button>
 
-        </div>
+            </div>
 
-        <div
-            id="loginStatus"
-            class="status">
+            <div id="loginStatus"></div>
 
         </div>
 
     </div>
 
-</div>
+    <!-- JS APP -->
 
-assets/js/storage.jsscript>
-assets/js/app.jsscript>
-assets/js/auth.jsscript>
+    <script src="assets/js/storage.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/auth.js"></script>
 
-<script>
+    <!-- Firebase (untuk tahap berikutnya) -->
 
-function togglePIN(){
+    <script src="assets/js/firebase-config.js"></script>
 
-    const input =
-    document.getElementById(
-        "pinLogin"
-    );
+    <script>
 
-    input.type =
-    input.type === "password"
-    ? "text"
-    : "password";
+        function togglePIN() {
 
-}
+            const input =
+                document.getElementById("pinLogin");
 
-function login(){
-
-    const pin =
-    document.getElementById(
-        "pinLogin"
-    ).value.trim();
-
-    const status =
-    document.getElementById(
-        "loginStatus"
-    );
-
-    if(!getPIN()){
-
-        status.style.color="red";
-
-        status.innerHTML =
-        "❌ PIN Admin belum dibuat. Silakan buat PIN di menu Profil.";
-
-        return;
-
-    }
-
-    if(!pin){
-
-        status.style.color="red";
-
-        status.innerHTML =
-        "❌ Masukkan PIN terlebih dahulu";
-
-        return;
-
-    }
-
-    if(verifyPIN(pin)){
-
-        loginAdmin();
-
-        status.style.color="#16a34a";
-
-        status.innerHTML =
-        "✅ Login berhasil";
-
-        setTimeout(() => {
-
-            location.href =
-            "transaksi.html";
-
-        },800);
-
-    }else{
-
-        status.style.color="#dc2626";
-
-        status.innerHTML =
-        "❌ PIN salah";
-
-    }
-
-}
-
-document
-.getElementById("pinLogin")
-.addEventListener(
-    "keypress",
-    function(e){
-
-        if(e.key==="Enter"){
-
-            login();
+            input.type =
+                input.type === "password"
+                    ? "text"
+                    : "password";
 
         }
 
-    }
-);
+        function login() {
 
-if(
-    typeof isAdminLoggedIn ===
-    "function" &&
-    isAdminLoggedIn()
-){
+            const pin =
+                document
+                    .getElementById("pinLogin")
+                    .value
+                    .trim();
 
-    location.href =
-    "transaksi.html";
+            const status =
+                document
+                    .getElementById("loginStatus");
 
-}
+            if (!getPIN()) {
 
-</script>
+                status.style.color = "#dc2626";
+
+                status.innerHTML =
+                    "❌ PIN Admin belum dibuat. Silakan buat PIN terlebih dahulu di menu Profil.";
+
+                return;
+            }
+
+            if (!pin) {
+
+                status.style.color = "#dc2626";
+
+                status.innerHTML =
+                    "❌ Masukkan PIN terlebih dahulu.";
+
+                return;
+            }
+
+            if (verifyPIN(pin)) {
+
+                if (typeof loginAdmin === "function") {
+
+                    loginAdmin();
+
+                }
+
+                status.style.color = "#16a34a";
+
+                status.innerHTML =
+                    "✅ Login berhasil.";
+
+                setTimeout(() => {
+
+                    location.href =
+                        "transaksi.html";
+
+                }, 800);
+
+            } else {
+
+                status.style.color = "#dc2626";
+
+                status.innerHTML =
+                    "❌ PIN Admin salah.";
+
+            }
+
+        }
+
+        document
+            .getElementById("pinLogin")
+            .addEventListener("keypress", function (e) {
+
+                if (e.key === "Enter") {
+
+                    login();
+
+                }
+
+            });
+
+        if (
+            typeof isAdminLoggedIn === "function" &&
+            isAdminLoggedIn()
+        ) {
+
+            window.location.href =
+                "transaksi.html";
+
+        }
+
+    </script>
 
 </body>
 
