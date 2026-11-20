@@ -2,46 +2,128 @@
 <html lang="id">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Profil & Pengaturan</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#16a34a">
+    <title>
 
-    <link rel="stylesheet" href="assets/css/style.css">
+        Profil & Pengaturan
+
+    </title>
+
+    <link
+        rel="manifest"
+        href="manifest.json">
+
+    <meta
+        name="theme-color"
+        content="#16a34a">
+
+    <link
+        rel="stylesheet"
+        href="assets/css/style.css">
+
 </head>
 
 <body>
 
 <div class="container">
 
+    <!-- HEADER -->
+
     <div class="header">
-        <h1>⚙️ Profil & Pengaturan</h1>
-        <p>Kelola akun dan data aplikasi</p>
+
+        <h1>
+
+            ⚙️ Profil & Pengaturan
+
+        </h1>
+
+        <p>
+
+            Kelola akun, keamanan, dan data aplikasi
+
+        </p>
+
     </div>
 
-    <!-- Profil -->
+    <!-- AKUN CLOUD -->
 
     <div class="card">
 
-        <h3>👤 Profil Pengguna</h3>
+        <h3>
 
-        <label>Nama</label>
+            ☁️ Akun Cloud
+
+        </h3>
+
+        <div
+            id="cloudUser"
+            class="info-box">
+
+            Belum login Google
+
+        </div>
+
+        <br>
+
+        <button
+            class="btn btn-success"
+            onclick="loginGoogle()">
+
+            🔵 Login Google
+
+        </button>
+
+        <button
+            class="btn btn-danger"
+            onclick="logoutAdmin()">
+
+            🚪 Logout
+
+        </button>
+
+    </div>
+
+    <!-- PROFIL -->
+
+    <div class="card">
+
+        <h3>
+
+            👤 Profil Pengguna
+
+        </h3>
+
+        <label>
+
+            Nama
+
+        </label>
 
         <input
             type="text"
             id="nama">
 
-        <label>Email</label>
+        <label>
+
+            Email
+
+        </label>
 
         <input
             type="email"
             id="email">
 
-        <button onclick="simpanProfil()">
+        <button
+            onclick="simpanProfil()">
+
             💾 Simpan Profil
+
         </button>
 
     </div>
@@ -50,22 +132,33 @@
 
     <div class="card">
 
-        <h3>🔒 PIN Admin</h3>
+        <h3>
 
-        <label>PIN</label>
+            🔒 PIN Admin
+
+        </h3>
+
+        <label>
+
+            PIN
+
+        </label>
 
         <input
             type="password"
             id="pinAdmin"
             placeholder="Minimal 4 digit">
 
-        <button onclick="savePINFromInput()">
+        <button
+            onclick="simpanPIN()">
+
             🔐 Simpan PIN
+
         </button>
 
         <button
             class="btn btn-warning"
-            onclick="changePIN()">
+            onclick="simpanPIN()">
 
             ✏️ Ganti PIN
 
@@ -73,7 +166,7 @@
 
         <button
             class="btn btn-danger"
-            onclick="removePINFromInput()">
+            onclick="hapusPIN()">
 
             🗑 Hapus PIN
 
@@ -89,78 +182,142 @@
 
     </div>
 
-    <!-- Target Tabungan -->
+    <!-- TARGET TABUNGAN -->
 
     <div class="card">
 
-        <h3>🎯 Target Tabungan</h3>
+        <h3>
 
-        <label>Nama Target</label>
+            🎯 Target Tabungan
+
+        </h3>
+
+        <label>
+
+            Nama Target
+
+        </label>
 
         <input
             type="text"
             id="namaTarget">
 
-        <label>Nominal Target</label>
+        <label>
+
+            Nominal Target
+
+        </label>
 
         <input
             type="number"
             id="target">
 
-        <label>Nominal Terkumpul</label>
+        <label>
+
+            Nominal Terkumpul
+
+        </label>
 
         <input
             type="number"
             id="terkumpul">
 
-        <button onclick="simpanTarget()">
+        <button
+            onclick="simpanTarget()">
+
             🎯 Simpan Target
+
         </button>
 
+        <br><br>
+
         <div class="progress">
+
             <div
-                class="progress-bar"
-                id="progressBar">
+                id="progressBar"
+                class="progress-bar">
+
             </div>
+
         </div>
 
         <div
             id="hasilTarget"
             class="info-box">
 
-            Belum ada target tabungan.
+            Belum ada target tabungan
 
         </div>
 
     </div>
 
-    <!-- Statistik -->
+    <!-- STATISTIK -->
 
     <div class="card">
 
-        <h3>📊 Statistik Keuangan</h3>
+        <h3>
+
+            📊 Statistik Keuangan
+
+        </h3>
 
         <p>
+
             Total Transaksi :
             <b id="totalTransaksi">0</b>
+
         </p>
 
-        <br>
-
         <p>
+
             Total Saldo :
-            <b id="totalSaldo">Rp 0</b>
+            <b id="totalSaldo">
+
+                Rp 0
+
+            </b>
+
         </p>
 
     </div>
 
-    <!-- Dark Mode -->
+    <!-- CLOUD SYNC -->
 
     <div class="card">
 
-        <h3>🌙 Tampilan</h3>
+        <h3>
 
-        <button onclick="toggleDarkMode()">
+            ☁️ Sinkronisasi Cloud
+
+        </h3>
+
+        <p id="syncStatus">
+
+            Belum Sinkron
+
+        </p>
+
+        <button
+            onclick="syncTransaksi()">
+
+            🔄 Sinkronkan Data
+
+        </button>
+
+    </div>
+
+    <!-- DARK MODE -->
+
+    <div class="card">
+
+        <h3>
+
+            🌙 Tampilan
+
+        </h3>
+
+        <button
+            onclick="toggleDarkMode()">
 
             Aktifkan / Nonaktifkan Dark Mode
 
@@ -168,15 +325,20 @@
 
     </div>
 
-    <!-- Backup -->
+    <!-- BACKUP -->
 
     <div class="card">
 
-        <h3>💾 Backup & Restore</h3>
+        <h3>
 
-        <button onclick="backupData()">
+            💾 Backup & Restore
 
-            📥 Backup Data JSON
+        </h3>
+
+        <button
+            onclick="backupData()">
+
+            📥 Backup JSON
 
         </button>
 
@@ -187,35 +349,24 @@
             id="restoreFile"
             accept=".json">
 
-        <button onclick="restoreData()">
-
-            📤 Restore Data
-
-        </button>
-
-    </div>
-
-    <!-- Logout -->
-
-    <div class="card">
-
-        <h3>🔓 Login Admin</h3>
-
         <button
-            class="btn btn-warning"
-            onclick="logoutPIN()">
+            onclick="restoreData()">
 
-            🚪 Logout Admin
+            📤 Restore Backup
 
         </button>
 
     </div>
 
-    <!-- Reset -->
+    <!-- RESET -->
 
     <div class="card">
 
-        <h3>🗑 Reset Aplikasi</h3>
+        <h3>
+
+            🗑 Reset Data
+
+        </h3>
 
         <button
             class="btn btn-danger"
@@ -227,21 +378,35 @@
 
     </div>
 
-    <!-- Tentang -->
+    <!-- APP INFO -->
 
     <div class="card">
 
-        <h3>ℹ️ Tentang Aplikasi</h3>
+        <h3>
+
+            ℹ️ Tentang Aplikasi
+
+        </h3>
 
         <div class="info-box">
 
-            Keuangan Pribadi v2.0
+            Keuangan Pribadi v3.0
+
             <br>
-            Progressive Web App (PWA)
+
+            Firebase Cloud Sync ✅
+
             <br>
-            Database Local Storage
+
+            Google Login ✅
+
             <br>
-            Offline Ready ✅
+
+            Progressive Web App ✅
+
+            <br>
+
+            Multi Device ✅
 
         </div>
 
@@ -254,39 +419,117 @@
 <div class="bottom-nav">
 
     <a href="index.html">
+
         🏠<br>
         Dashboard
+
     </a>
 
     <a href="transaksi.html">
+
         ➕<br>
         Transaksi
+
     </a>
 
     <a href="laporan.html">
+
         📊<br>
         Laporan
+
     </a>
 
-    <a href="profil.html" class="active">
+    <a
+        href="profil.html"
+        class="active">
+
         ⚙️<br>
         Profil
+
     </a>
 
 </div>
 
+<!-- FIREBASE -->
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+<!-- CORE -->
+
+<script src="assets/js/firebase-config.js"></script>
+
 <script src="assets/js/storage.js"></script>
+
 <script src="assets/js/auth.js"></script>
+
 <script src="assets/js/app.js"></script>
+
+<!-- FEATURE -->
+
+<script src="assets/js/sync.js"></script>
+
 <script src="assets/js/profil.js"></script>
 
+<!-- CLOUD USER -->
+
 <script>
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js");
-    });
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const user =
+            JSON.parse(
+                localStorage.getItem(
+                    "googleUser"
+                ) || "null"
+            );
+
+        if(user){
+
+            document.getElementById(
+                "cloudUser"
+            ).innerHTML = `
+                ✅ ${user.nama}
+                <br>
+                ${user.email}
+            `;
+
+        }
+
+    }
+);
+
+</script>
+
+<!-- SERVICE WORKER -->
+
+<script>
+
+if (
+    "serviceWorker"
+    in navigator
+) {
+
+    window.addEventListener(
+        "load",
+        () => {
+
+            navigator
+                .serviceWorker
+                .register("./sw.js");
+
+        }
+    );
+
 }
+
 </script>
 
 </body>
+
 </html>
