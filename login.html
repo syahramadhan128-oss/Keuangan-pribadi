@@ -2,282 +2,428 @@
 <html lang="id">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login Admin - Keuangan Pribadi</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#16a34a">
+    <title>
 
-    <link rel="stylesheet" href="assets/css/style.css">
+        Login Admin - Keuangan Pribadi
+
+    </title>
+
+    <link
+        rel="manifest"
+        href="manifest.json">
+
+    <meta
+        name="theme-color"
+        content="#16a34a">
+
+    <link
+        rel="stylesheet"
+        href="assets/css/style.css">
 
     <style>
-        .login-page {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+
+        .login-page{
+
+            min-height:100vh;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            padding:20px;
+
         }
 
-        .login-card {
-            width: 100%;
-            max-width: 420px;
+        .login-card{
+
+            width:100%;
+
+            max-width:420px;
+
         }
 
-        .logo {
-            text-align: center;
-            margin-bottom: 25px;
+        .logo{
+
+            text-align:center;
+
+            margin-bottom:25px;
+
         }
 
-        .logo img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 24px;
+        .logo img{
+
+            width:100px;
+
+            height:100px;
+
+            border-radius:24px;
+
         }
 
-        .logo h1 {
-            color: #16a34a;
-            margin-top: 12px;
+        .logo h1{
+
+            color:#16a34a;
+
+            margin-top:10px;
+
         }
 
-        .logo p {
-            color: #666;
-            margin-top: 5px;
+        .password-wrapper{
+
+            position:relative;
+
         }
 
-        .password-wrapper {
-            position: relative;
+        .password-wrapper button{
+
+            position:absolute;
+
+            top:50%;
+
+            right:10px;
+
+            transform:translateY(-50%);
+
+            width:auto;
+
+            padding:8px 12px;
+
         }
 
-        .password-wrapper button {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: auto;
-            padding: 8px 12px;
+        .login-actions{
+
+            display:flex;
+
+            flex-direction:column;
+
+            gap:10px;
+
+            margin-top:15px;
+
         }
 
-        .login-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
+        #loginStatus{
+
+            margin-top:15px;
+
+            text-align:center;
+
+            font-weight:bold;
+
+            min-height:24px;
+
         }
 
-        #loginStatus {
-            margin-top: 15px;
-            text-align: center;
-            font-weight: 600;
-            min-height: 24px;
-        }
     </style>
+
 </head>
 
 <body>
 
-    <div class="login-page">
+<div class="login-page">
 
-        <div class="card login-card">
+    <div class="card login-card">
 
-            <div class="logo">
+        <div class="logo">
 
-                <img src="icons/icon-192.png" alt="Logo Keuangan Pribadi">
+            <img
+                src="icons/icon-192.png"
+                alt="Logo">
 
-                <h1>💰 Keuangan Pribadi</h1>
+            <h1>
 
-                <p>Login Administrator</p>
+                💰 Keuangan Pribadi
 
-            </div>
+            </h1>
 
-            <label for="pinLogin">
-                PIN Admin
-            </label>
+            <p>
 
-            <div class="password-wrapper">
+                Login Administrator
 
-                <input
-                    type="password"
-                    id="pinLogin"
-                    placeholder="Masukkan PIN Admin">
+            </p>
 
-                <button
-                    type="button"
-                    class="btn btn-info"
-                    onclick="togglePIN()">
+        </div>
 
-                    👁
+        <label>
 
-                </button>
+            PIN Admin
 
-            </div>
+        </label>
 
-           <div class="login-actions">
+        <div class="password-wrapper">
 
-    <button
-        class="btn btn-success btn-full"
-        onclick="loginGoogle()">
+            <input
+                type="password"
+                id="pinLogin"
+                placeholder="Masukkan PIN Admin">
 
-        🔵 Login dengan Google
+            <button
+                type="button"
+                class="btn btn-info"
+                onclick="togglePIN()">
 
-    </button>
+                👁
 
-    <button
-        class="btn btn-primary btn-full"
-        onclick="login()">
+            </button>
 
-        🔐 Login
+        </div>
 
-    </button>
+        <div class="login-actions">
 
-    <button
-        class="btn btn-info btn-full"
-        onclick="toggleDarkMode()">
+            <button
+                class="btn btn-success btn-full"
+                onclick="loginGoogle()">
 
-        🌙 Dark Mode
+                🔵 Login dengan Google
 
-    </button>
+            </button>
 
-    <button
-        class="btn btn-warning btn-full"
-        onclick="location.href='index.html'">
+            <button
+                class="btn btn-primary btn-full"
+                onclick="loginPIN()">
 
-        🏠 Dashboard
+                🔐 Login dengan PIN
 
-    </button>
+            </button>
 
-</div>
+            <button
+                class="btn btn-info btn-full"
+                onclick="toggleDarkMode()">
 
-            <div id="loginStatus"></div>
+                🌙 Dark Mode
+
+            </button>
+
+            <button
+                class="btn btn-warning btn-full"
+                onclick="location.href='index.html'">
+
+                🏠 Dashboard
+
+            </button>
+
+        </div>
+
+        <div id="loginStatus">
 
         </div>
 
     </div>
 
-    <!-- APP JS -->
-    <script src="assets/js/storage.js"></script>
-    <script src="assets/js/app.js"></script>
-    <script src="assets/js/auth.js"></script>
+</div>
 
-    <!-- FIREBASE -->
-    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<!-- Firebase -->
 
-    <script src="assets/js/firebase-config.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 
-    <script>
-        firebase.initializeApp(firebaseConfig);
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 
-        const auth = firebase.auth();
-        const db = firebase.firestore();
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 
-        console.log("✅ Firebase Ready");
+<!-- Core -->
 
-        function togglePIN() {
+<script src="assets/js/firebase-config.js"></script>
 
-            const input =
-                document.getElementById("pinLogin");
+<script src="assets/js/storage.js"></script>
 
-            input.type =
-                input.type === "password"
-                    ? "text"
-                    : "password";
+<script src="assets/js/app.js"></script>
 
-        }
+<script src="assets/js/auth.js"></script>
 
-        function login() {
+<script>
 
-            const pin =
-                document
-                    .getElementById("pinLogin")
-                    .value
-                    .trim();
+firebase.initializeApp(firebaseConfig);
 
-            const status =
-                document
-                    .getElementById("loginStatus");
+const auth = firebase.auth();
 
-            if (!getPIN()) {
+const db = firebase.firestore();
 
-                status.style.color = "#dc2626";
+console.log(
+    "✅ Firebase Ready"
+);
 
-                status.innerHTML =
-                    "❌ PIN Admin belum dibuat. Silakan buat PIN di menu Profil.";
+function setStatus(
+    text,
+    color
+){
 
-                return;
+    const status =
+    document.getElementById(
+        "loginStatus"
+    );
 
-            }
+    status.style.color =
+    color;
 
-            if (!pin) {
+    status.innerHTML =
+    text;
 
-                status.style.color = "#dc2626";
+}
 
-                status.innerHTML =
-                    "❌ Masukkan PIN terlebih dahulu.";
+function togglePIN(){
 
-                return;
+    const input =
+    document.getElementById(
+        "pinLogin"
+    );
 
-            }
+    input.type =
+    input.type === "password"
+    ? "text"
+    : "password";
 
-            if (verifyPIN(pin)) {
+}
 
-                if (
-                    typeof loginAdmin === "function"
-                ) {
+async function loginGoogle(){
 
-                    loginAdmin();
+    try{
 
-                }
+        const provider =
+        new firebase.auth.GoogleAuthProvider();
 
-                status.style.color = "#16a34a";
+        const result =
+        await auth.signInWithPopup(
+            provider
+        );
 
-                status.innerHTML =
-                    "✅ Login berhasil.";
+        const user =
+        result.user;
 
-                setTimeout(() => {
+        localStorage.setItem(
+            "googleUser",
+            JSON.stringify({
+                uid:user.uid,
+                nama:user.displayName,
+                email:user.email
+            })
+        );
 
-                    location.href =
-                        "transaksi.html";
+        setStatus(
+            "✅ Login Google berhasil",
+            "#16a34a"
+        );
 
-                }, 800);
-
-            } else {
-
-                status.style.color = "#dc2626";
-
-                status.innerHTML =
-                    "❌ PIN Admin salah.";
-
-            }
-
-        }
-
-        document
-            .getElementById("pinLogin")
-            .addEventListener("keypress", function (e) {
-
-                if (e.key === "Enter") {
-
-                    login();
-
-                }
-
-            });
-
-        if (
-            typeof isAdminLoggedIn === "function" &&
-            isAdminLoggedIn()
-        ) {
+        setTimeout(() => {
 
             location.href =
-                "transaksi.html";
+            "index.html";
+
+        },1000);
+
+    }catch(error){
+
+        console.error(error);
+
+        setStatus(
+            "❌ Login Google gagal",
+            "#dc2626"
+        );
+
+    }
+
+}
+
+function loginPIN(){
+
+    const pin =
+    document
+    .getElementById(
+        "pinLogin"
+    )
+    .value
+    .trim();
+
+    if(!getPIN()){
+
+        setStatus(
+            "❌ PIN Admin belum dibuat",
+            "#dc2626"
+        );
+
+        return;
+
+    }
+
+    if(!pin){
+
+        setStatus(
+            "❌ Masukkan PIN terlebih dahulu",
+            "#dc2626"
+        );
+
+        return;
+
+    }
+
+    if(
+        verifyPIN(pin)
+    ){
+
+        loginAdmin();
+
+        setStatus(
+            "✅ Login berhasil",
+            "#16a34a"
+        );
+
+        setTimeout(() => {
+
+            location.href =
+            "transaksi.html";
+
+        },800);
+
+    }else{
+
+        setStatus(
+            "❌ PIN Admin salah",
+            "#dc2626"
+        );
+
+    }
+
+}
+
+document
+.getElementById(
+    "pinLogin"
+)
+.addEventListener(
+    "keypress",
+    function(e){
+
+        if(
+            e.key === "Enter"
+        ){
+
+            loginPIN();
 
         }
-    </script>
+
+    }
+);
+
+if(
+    typeof isAdminLoggedIn ===
+    "function" &&
+    isAdminLoggedIn()
+){
+
+    location.href =
+    "transaksi.html";
+
+}
+
+</script>
 
 </body>
 
