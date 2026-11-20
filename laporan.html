@@ -2,17 +2,34 @@
 <html lang="id">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Laporan Keuangan</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <link rel="manifest" href="./manifest.json">
-    <meta name="theme-color" content="#16a34a">
+    <title>
+        Laporan Keuangan
+    </title>
 
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link
+        rel="manifest"
+        href="./manifest.json">
+
+    <meta
+        name="theme-color"
+        content="#16a34a">
+
+    <link
+        rel="stylesheet"
+        href="./assets/css/style.css">
+
+    <!-- Chart -->
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Excel -->
 
     <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 
@@ -26,10 +43,16 @@
 
     <div class="header">
 
-        <h1>📊 Laporan Keuangan</h1>
+        <h1>
+
+            📊 Laporan Keuangan
+
+        </h1>
 
         <p>
+
             Analisis pemasukan dan pengeluaran
+
         </p>
 
     </div>
@@ -38,11 +61,17 @@
 
     <div class="card">
 
-        <h3>📅 Filter Laporan</h3>
+        <h3>
 
-        <br>
+            📅 Filter Laporan
 
-        <label>Bulan</label>
+        </h3>
+
+        <label>
+
+            Bulan
+
+        </label>
 
         <input
             type="month"
@@ -50,20 +79,30 @@
 
         <br><br>
 
-        <label>Jenis Transaksi</label>
+        <label>
+
+            Jenis Transaksi
+
+        </label>
 
         <select id="filterJenis">
 
             <option value="">
+
                 Semua Jenis
+
             </option>
 
             <option value="Masuk">
+
                 Pemasukan
+
             </option>
 
             <option value="Keluar">
+
                 Pengeluaran
+
             </option>
 
         </select>
@@ -76,43 +115,92 @@
 
         <div class="summary-card income-card">
 
-            <h3>Total Pemasukan</h3>
+            <h3>
+
+                Total Pemasukan
+
+            </h3>
 
             <p id="totalMasuk">
+
                 Rp 0
+
             </p>
 
         </div>
 
         <div class="summary-card expense-card">
 
-            <h3>Total Pengeluaran</h3>
+            <h3>
+
+                Total Pengeluaran
+
+            </h3>
 
             <p id="totalKeluar">
+
                 Rp 0
+
             </p>
 
         </div>
 
         <div class="summary-card balance-card">
 
-            <h3>Saldo</h3>
+            <h3>
+
+                Saldo
+
+            </h3>
 
             <p id="saldo">
+
                 Rp 0
+
             </p>
 
         </div>
 
         <div class="summary-card score-card">
 
-            <h3>Health Score</h3>
+            <h3>
+
+                Health Score
+
+            </h3>
 
             <p id="score">
-                0/100
+
+                0 / 100
+
             </p>
 
         </div>
+
+    </div>
+
+    <!-- CLOUD -->
+
+    <div class="card">
+
+        <h3>
+
+            ☁️ Sinkronisasi Cloud
+
+        </h3>
+
+        <p id="syncStatus">
+
+            Belum Sinkron
+
+        </p>
+
+        <button
+            onclick="syncTransaksi()">
+
+            🔄 Sinkronkan Data
+
+        </button>
 
     </div>
 
@@ -120,9 +208,11 @@
 
     <div class="card">
 
-        <h3>📈 Insight Keuangan</h3>
+        <h3>
 
-        <br>
+            📈 Insight Keuangan
+
+        </h3>
 
         <div id="insight">
 
@@ -132,27 +222,82 @@
 
     </div>
 
-    <!-- GRAFIK 1 -->
+    <!-- CHART UTAMA -->
 
     <div class="card">
 
-        <h3>🥧 Pemasukan vs Pengeluaran</h3>
+        <h3>
 
-        <br>
+            🥧 Pemasukan vs Pengeluaran
+
+        </h3>
 
         <canvas id="chartUtama"></canvas>
 
     </div>
 
-    <!-- GRAFIK 2 -->
+    <!-- CHART KATEGORI -->
 
     <div class="card">
 
-        <h3>📊 Pengeluaran per Kategori</h3>
+        <h3>
 
-        <br>
+            📊 Pengeluaran per Kategori
+
+        </h3>
 
         <canvas id="chartKategori"></canvas>
+
+    </div>
+
+    <!-- KATEGORI -->
+
+    <div class="card">
+
+        <h3>
+
+            📋 Ringkasan Pengeluaran per Kategori
+
+        </h3>
+
+        <div id="kategoriSummary">
+
+            Belum ada data
+
+        </div>
+
+    </div>
+
+    <!-- IMPORT EXPORT -->
+
+    <div class="card">
+
+        <h3>
+
+            📂 Import Export
+
+        </h3>
+
+        <input
+            type="file"
+            id="excelImport"
+            accept=".xlsx">
+
+        <br><br>
+
+        <button
+            onclick="importExcel(document.getElementById('excelImport').files[0])">
+
+            📤 Import Excel
+
+        </button>
+
+        <button
+            onclick="exportExcel()">
+
+            📥 Export Excel
+
+        </button>
 
     </div>
 
@@ -160,39 +305,31 @@
 
     <div class="card">
 
-        <h3>⚙️ Aksi</h3>
+        <h3>
 
-        <br>
+            ⚙️ Aksi
 
-        <div class="grid grid-2">
+        </h3>
 
-            <button
-                class="btn btn-success"
-                onclick="exportExcel()">
+        <button
+            class="btn btn-danger"
+            onclick="hapusSemuaData()">
 
-                📥 Export Excel
+            🗑 Reset Transaksi
 
-            </button>
-
-            <button
-                class="btn btn-danger"
-                onclick="hapusSemuaData()">
-
-                🗑 Reset Transaksi
-
-            </button>
-
-        </div>
+        </button>
 
     </div>
 
-    <!-- TABEL -->
+    <!-- TABLE -->
 
     <div class="card">
 
-        <h3>📋 Detail Transaksi</h3>
+        <h3>
 
-        <br>
+            📋 Detail Transaksi
+
+        </h3>
 
         <div class="table-container">
 
@@ -238,49 +375,73 @@
 
 </div>
 
-<!-- BOTTOM NAV -->
+<!-- NAVIGATION -->
 
 <div class="bottom-nav">
 
     <a href="index.html">
 
-        🏠
-        <br>
+        🏠<br>
+
         Dashboard
 
     </a>
 
     <a href="transaksi.html">
 
-        ➕
-        <br>
+        ➕<br>
+
         Transaksi
 
     </a>
 
-    <a href="laporan.html" class="active">
+    <a
+        href="laporan.html"
+        class="active">
 
-        📊
-        <br>
+        📊<br>
+
         Laporan
 
     </a>
 
     <a href="profil.html">
 
-        ⚙️
-        <br>
+        ⚙️<br>
+
         Profil
 
     </a>
 
 </div>
 
-<!-- SCRIPTS -->
+<!-- FIREBASE -->
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+<!-- CORE -->
+
+<script src="./assets/js/firebase-config.js"></script>
+
+<script src="./assets/js/auth.js"></script>
 
 <script src="./assets/js/storage.js"></script>
 
 <script src="./assets/js/app.js"></script>
+
+<!-- FEATURE -->
+
+<script src="./assets/js/kategori.js"></script>
+
+<script src="./assets/js/sync.js"></script>
+
+<script src="./assets/js/excel-import.js"></script>
+
+<script src="./assets/js/excel-export.js"></script>
 
 <script src="./assets/js/laporan.js"></script>
 
@@ -290,29 +451,33 @@
 
 if ("serviceWorker" in navigator) {
 
-    window.addEventListener("load", () => {
+    window.addEventListener(
+        "load",
+        () => {
 
-        navigator.serviceWorker
-            .register("./sw.js")
-            .then(() => {
+            navigator.serviceWorker
+                .register("./sw.js")
+                .then(() => {
 
-                console.log(
-                    "✅ Service Worker Registered"
-                );
+                    console.log(
+                        "✅ Service Worker Registered"
+                    );
 
-            })
-            .catch(error => {
+                })
+                .catch(error => {
 
-                console.error(error);
+                    console.error(
+                        error
+                    );
 
-            });
+                });
 
-    });
+        }
+    );
 
 }
 
 </script>
 
 </body>
-
 </html>
