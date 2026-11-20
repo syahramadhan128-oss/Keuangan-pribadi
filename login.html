@@ -2,162 +2,143 @@
 <html lang="id">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin - Keuangan Pribadi</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#16a34a">
 
-    <title>
-
-        Login Admin - Keuangan Pribadi
-
-    </title>
-
-    <link
-        rel="manifest"
-        href="manifest.json">
-
-    <meta
-        name="theme-color"
-        content="#16a34a">
-
-    <link
-        rel="stylesheet"
-        href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
     <style>
-
-        .login-page{
-
-            min-height:100vh;
-
-            display:flex;
-
-            justify-content:center;
-
-            align-items:center;
-
-            padding:20px;
-
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #eef7f0;
         }
 
-        .login-card{
-
-            width:100%;
-
-            max-width:420px;
-
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
-        .logo{
-
-            text-align:center;
-
-            margin-bottom:25px;
-
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,.1);
         }
 
-        .logo img{
-
-            width:100px;
-
-            height:100px;
-
-            border-radius:24px;
-
+        .logo {
+            text-align: center;
+            margin-bottom: 25px;
         }
 
-        .logo h1{
-
-            color:#16a34a;
-
-            margin-top:10px;
-
+        .logo img {
+            width: 100px;
+            height: 100px;
         }
 
-        .password-wrapper{
-
-            position:relative;
-
+        .logo h1 {
+            color: #16a34a;
+            margin: 10px 0;
         }
 
-        .password-wrapper button{
-
-            position:absolute;
-
-            top:50%;
-
-            right:10px;
-
-            transform:translateY(-50%);
-
-            width:auto;
-
-            padding:8px 12px;
-
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
         }
 
-        .login-actions{
-
-            display:flex;
-
-            flex-direction:column;
-
-            gap:10px;
-
-            margin-top:15px;
-
+        .password-wrapper {
+            position: relative;
         }
 
-        #loginStatus{
-
-            margin-top:15px;
-
-            text-align:center;
-
-            font-weight:bold;
-
-            min-height:24px;
-
+        .password-wrapper input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
         }
 
+        .password-wrapper button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            border: none;
+            background: #2563eb;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            padding: 8px 12px;
+        }
+
+        .login-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 10px;
+            padding: 14px;
+            cursor: pointer;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .btn-success {
+            background: #16a34a;
+        }
+
+        .btn-primary {
+            background: #16a34a;
+        }
+
+        .btn-info {
+            background: #2563eb;
+        }
+
+        .btn-warning {
+            background: #f59e0b;
+        }
+
+        #loginStatus {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+            min-height: 24px;
+        }
     </style>
-
 </head>
 
 <body>
 
 <div class="login-page">
 
-    <div class="card login-card">
+    <div class="login-card">
 
         <div class="logo">
 
-            <img
-                src="icons/icon-192.png"
-                alt="Logo">
+            <img src="icons/icon-192.png" alt="Logo">
 
-            <h1>
+            <h1>💰 Keuangan Pribadi</h1>
 
-                💰 Keuangan Pribadi
-
-            </h1>
-
-            <p>
-
-                Login Administrator
-
-            </p>
+            <p>Login Administrator</p>
 
         </div>
 
-        <label>
-
-            PIN Admin
-
-        </label>
+        <label>PIN Admin</label>
 
         <div class="password-wrapper">
 
@@ -168,11 +149,8 @@
 
             <button
                 type="button"
-                class="btn btn-info"
                 onclick="togglePIN()">
-
                 👁
-
             </button>
 
         </div>
@@ -180,42 +158,32 @@
         <div class="login-actions">
 
             <button
-                class="btn btn-success btn-full"
+                class="btn btn-success"
                 onclick="loginGoogle()">
-
                 🔵 Login dengan Google
-
             </button>
 
             <button
-                class="btn btn-primary btn-full"
+                class="btn btn-primary"
                 onclick="loginPIN()">
-
                 🔐 Login dengan PIN
-
             </button>
 
             <button
-                class="btn btn-info btn-full"
+                class="btn btn-info"
                 onclick="toggleDarkMode()">
-
                 🌙 Dark Mode
-
             </button>
 
             <button
-                class="btn btn-warning btn-full"
+                class="btn btn-warning"
                 onclick="location.href='index.html'">
-
                 🏠 Dashboard
-
             </button>
 
         </div>
 
-        <div id="loginStatus">
-
-        </div>
+        <div id="loginStatus"></div>
 
     </div>
 
@@ -224,136 +192,44 @@
 <!-- Firebase -->
 
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 
-<!-- Core -->
+<!-- App JS -->
 
 <script src="assets/js/firebase-config.js"></script>
-
 <script src="assets/js/storage.js"></script>
-
 <script src="assets/js/app.js"></script>
-
 <script src="assets/js/auth.js"></script>
 
 <script>
 
-firebase.initializeApp(firebaseConfig);
+function setStatus(text, color) {
 
-const auth = firebase.auth();
+    const status = document.getElementById("loginStatus");
 
-const db = firebase.firestore();
-
-console.log(
-    "✅ Firebase Ready"
-);
-
-function setStatus(
-    text,
-    color
-){
-
-    const status =
-    document.getElementById(
-        "loginStatus"
-    );
-
-    status.style.color =
-    color;
-
-    status.innerHTML =
-    text;
-
+    status.innerHTML = text;
+    status.style.color = color;
 }
 
-function togglePIN(){
+function togglePIN() {
 
-    const input =
-    document.getElementById(
-        "pinLogin"
-    );
+    const pinInput = document.getElementById("pinLogin");
 
-    input.type =
-    input.type === "password"
-    ? "text"
-    : "password";
-
+    pinInput.type =
+        pinInput.type === "password"
+            ? "text"
+            : "password";
 }
 
-async function loginGoogle(){
-
-    try{
-
-        const provider =
-        new firebase.auth.GoogleAuthProvider();
-
-        const result =
-        await auth.signInWithPopup(
-            provider
-        );
-
-        const user =
-        result.user;
-
-        localStorage.setItem(
-            "googleUser",
-            JSON.stringify({
-                uid:user.uid,
-                nama:user.displayName,
-                email:user.email
-            })
-        );
-
-        setStatus(
-            "✅ Login Google berhasil",
-            "#16a34a"
-        );
-
-        setTimeout(() => {
-
-            location.href =
-            "index.html";
-
-        },1000);
-
-    }catch(error){
-
-        console.error(error);
-
-        setStatus(
-            "❌ Login Google gagal",
-            "#dc2626"
-        );
-
-    }
-
-}
-
-function loginPIN(){
+function loginPIN() {
 
     const pin =
-    document
-    .getElementById(
-        "pinLogin"
-    )
-    .value
-    .trim();
+        document.getElementById("pinLogin")
+        .value
+        .trim();
 
-    if(!getPIN()){
-
-        setStatus(
-            "❌ PIN Admin belum dibuat",
-            "#dc2626"
-        );
-
-        return;
-
-    }
-
-    if(!pin){
+    if (!pin) {
 
         setStatus(
             "❌ Masukkan PIN terlebih dahulu",
@@ -361,14 +237,18 @@ function loginPIN(){
         );
 
         return;
-
     }
 
-    if(
+    if (
+        typeof verifyPIN === "function" &&
         verifyPIN(pin)
-    ){
+    ) {
 
-        loginAdmin();
+        if (
+            typeof loginAdmin === "function"
+        ) {
+            loginAdmin();
+        }
 
         setStatus(
             "✅ Login berhasil",
@@ -378,53 +258,61 @@ function loginPIN(){
         setTimeout(() => {
 
             location.href =
-            "transaksi.html";
+                "transaksi.html";
 
-        },800);
+        }, 800);
 
-    }else{
+    } else {
 
         setStatus(
-            "❌ PIN Admin salah",
+            "❌ PIN salah",
             "#dc2626"
         );
-
     }
+}
 
+function loginGoogle() {
+
+    if (
+        typeof window.loginWithGoogle ===
+        "function"
+    ) {
+
+        window.loginWithGoogle();
+
+    } else {
+
+        setStatus(
+            "❌ Fungsi Login Google tidak ditemukan",
+            "#dc2626"
+        );
+    }
 }
 
 document
-.getElementById(
-    "pinLogin"
-)
+.getElementById("pinLogin")
 .addEventListener(
     "keypress",
     function(e){
 
-        if(
-            e.key === "Enter"
-        ){
+        if(e.key === "Enter"){
 
             loginPIN();
 
         }
-
     }
 );
 
-if(
-    typeof isAdminLoggedIn ===
-    "function" &&
+if (
+    typeof isAdminLoggedIn === "function" &&
     isAdminLoggedIn()
-){
+) {
 
     location.href =
-    "transaksi.html";
-
+        "transaksi.html";
 }
 
 </script>
 
 </body>
-
 </html>
