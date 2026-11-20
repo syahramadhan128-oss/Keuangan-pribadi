@@ -1,68 +1,74 @@
-/*
-========================================
-AUTH.JS
-ADMIN AUTHORIZATION
-========================================
-*/
+const ADMIN_SESSION_KEY = "adminSession";
 
-const ADMIN_LOGIN_KEY = "adminLoggedIn";
+async function loginGoogle() {
 
-/*
-========================================
-LOGIN ADMIN
-========================================
-*/
+    try {
+
+        const provider =
+            new firebase.auth.GoogleAuthProvider();
+
+        const result =
+            await auth.signInWithPopup(
+                provider
+            );
+
+        const user =
+            result.user;
+
+        localStorage.setItem(
+            "googleUser",
+            JSON.stringify({
+                uid: user.uid,
+                nama: user.displayName,
+                email: user.email
+            })
+        );
+
+        console.log(
+            "Login berhasil:",
+            user.email
+        );
+
+        return user;
+
+    } catch (error) {
+
+        console.error(error);
+
+        throw error;
+
+    }
+
+}
 
 function loginAdmin() {
 
     localStorage.setItem(
-        ADMIN_LOGIN_KEY,
+        ADMIN_SESSION_KEY,
         "true"
-    );
-
-    console.log(
-        "✅ Admin Login"
     );
 
 }
 
-/*
-========================================
-LOGOUT ADMIN
-========================================
-*/
-
 function logoutAdmin() {
 
     localStorage.removeItem(
-        ADMIN_LOGIN_KEY
+        ADMIN_SESSION_KEY
     );
 
-    console.log(
-        "✅ Admin Logout"
-    );
+    auth.signOut();
 
     location.href =
         "login.html";
 
 }
 
-/*
-========================================
-CHECK LOGIN
-========================================
-*/
-
 function isAdminLoggedIn() {
 
     return (
         localStorage.getItem(
-            ADMIN_LOGIN_KEY
+            ADMIN_SESSION_KEY
         ) === "true"
     );
 
 }
-
-console.log(
-    "✅ auth.js loaded"
-);
