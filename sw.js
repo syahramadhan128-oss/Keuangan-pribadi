@@ -1,11 +1,18 @@
 /*
 =========================================
 SERVICE WORKER
-Keuangan Pribadi PWA
+Keuangan Pribadi v3.0
 =========================================
 */
 
-const CACHE_NAME = "keuangan-pribadi-v2";
+const CACHE_NAME =
+    "keuangan-pribadi-v3";
+
+/*
+=========================================
+FILES CACHE
+=========================================
+*/
 
 const APP_ASSETS = [
 
@@ -21,15 +28,32 @@ const APP_ASSETS = [
 
     "./assets/css/style.css",
 
-    "./assets/js/storage.js",
-    "./assets/js/app.js",
+    "./assets/js/firebase-config.js",
+
     "./assets/js/auth.js",
+
+    "./assets/js/storage.js",
+
+    "./assets/js/app.js",
+
     "./assets/js/dashboard.js",
+
     "./assets/js/transaksi.js",
+
     "./assets/js/laporan.js",
+
     "./assets/js/profil.js",
 
+    "./assets/js/kategori.js",
+
+    "./assets/js/sync.js",
+
+    "./assets/js/excel-import.js",
+
+    "./assets/js/excel-export.js",
+
     "./assets/icons/icon-192.png",
+
     "./assets/icons/icon-512.png"
 
 ];
@@ -40,28 +64,32 @@ INSTALL
 =========================================
 */
 
-self.addEventListener("install", event => {
+self.addEventListener(
+    "install",
+    event => {
 
-    event.waitUntil(
+        event.waitUntil(
 
-        caches.open(CACHE_NAME)
-        .then(cache => {
+            caches
+            .open(CACHE_NAME)
+            .then(cache => {
 
-            console.log(
-                "✅ Cache Dibuat"
-            );
+                console.log(
+                    "✅ Cache dibuat"
+                );
 
-            return cache.addAll(
-                APP_ASSETS
-            );
+                return cache.addAll(
+                    APP_ASSETS
+                );
 
-        })
+            })
 
-    );
+        );
 
-    self.skipWaiting();
+        self.skipWaiting();
 
-});
+    }
+);
 
 /*
 =========================================
@@ -69,43 +97,46 @@ ACTIVATE
 =========================================
 */
 
-self.addEventListener("activate", event => {
+self.addEventListener(
+    "activate",
+    event => {
 
-    event.waitUntil(
+        event.waitUntil(
 
-        caches.keys()
-        .then(keys => {
+            caches.keys()
+            .then(keys => {
 
-            return Promise.all(
+                return Promise.all(
 
-                keys.map(key => {
+                    keys.map(key => {
 
-                    if(
-                        key !== CACHE_NAME
-                    ){
+                        if (
+                            key !== CACHE_NAME
+                        ) {
 
-                        console.log(
-                            "🗑 Menghapus Cache Lama:",
-                            key
-                        );
+                            console.log(
+                                "🗑 Hapus cache lama:",
+                                key
+                            );
 
-                        return caches.delete(
-                            key
-                        );
+                            return caches.delete(
+                                key
+                            );
 
-                    }
+                        }
 
-                })
+                    })
 
-            );
+                );
 
-        })
+            })
 
-    );
+        );
 
-    self.clients.claim();
+        self.clients.claim();
 
-});
+    }
+);
 
 /*
 =========================================
@@ -114,83 +145,103 @@ CACHE FIRST
 =========================================
 */
 
-self.addEventListener("fetch", event => {
+self.addEventListener(
+    "fetch",
+    event => {
 
-    if(
-        event.request.method !== "GET"
-    ){
-        return;
-    }
+        if (
+            event.request.method !==
+            "GET"
+        ) {
+            return;
+        }
 
-    event.respondWith(
+        event.respondWith(
 
-        caches.match(
-            event.request
-        )
-
-        .then(cacheResponse => {
-
-            if(cacheResponse){
-
-                return cacheResponse;
-
-            }
-
-            return fetch(
+            caches.match(
                 event.request
             )
 
-            .then(networkResponse => {
+            .then(response => {
 
-                if(
-                    !networkResponse ||
-                    networkResponse.status !== 200
-                ){
+                if (response) {
+
+                    return response;
+
+                }
+
+                return fetch(
+                    event.request
+                )
+
+                .then(networkResponse => {
+
+                    if (
+                        !networkResponse ||
+                        networkResponse.status !== 200
+                    ) {
+
+                        return networkResponse;
+
+                    }
+
+                    const clone =
+                        networkResponse.clone();
+
+                    caches
+                    .open(CACHE_NAME)
+                    .then(cache => {
+
+                        cache.put(
+                            event.request,
+                            clone
+                        );
+
+                    });
 
                     return networkResponse;
 
-                }
+                })
 
-                const cloned =
-                networkResponse.clone();
+                .catch(() => {
 
-                caches.open(
-                    CACHE_NAME
-                )
+                    if (
+                        event.request.mode ===
+                        "navigate"
+                    ) {
 
-                .then(cache => {
+                        return caches.match(
+                            "./index.html"
+                        );
 
-                    cache.put(
-                        event.request,
-                        cloned
-                    );
+                    }
 
                 });
 
-                return networkResponse;
-
             })
 
-            .catch(() => {
+        );
 
-                if(
-                    event.request.mode ===
-                    "navigate"
-                ){
+    }
+);
 
-                    return caches.match(
-                        "./index.html"
-                    );
+/*
+=========================================
+BACKGROUND SYNC
+=========================================
+*/
 
-                }
+self.addEventListener(
+    "sync",
+    event => {
 
-            });
+        console.log(
+            "🔄 Background Sync:",
+            event.tag
+        );
 
-        })
-
-    );
-
-});
+    }
+);
 
 /*
 =========================================
@@ -203,12 +254,12 @@ self.addEventListener(
     event => {
 
         const title =
-        "Keuangan Pribadi";
+            "Keuangan Pribadi";
 
         const options = {
 
             body:
-            "Jangan lupa mencatat transaksi hari ini 📊",
+            "Jangan lupa mencatat pemasukan dan pengeluaran hari ini.",
 
             icon:
             "./assets/icons/icon-192.png",
@@ -217,7 +268,14 @@ self.addEventListener(
             "./assets/icons/icon-192.png",
 
             vibrate:
-            [200,100,200]
+            [200, 100, 200],
+
+            data: {
+
+                url:
+                "./transaksi.html"
+
+            }
 
         };
 
@@ -249,7 +307,9 @@ self.addEventListener(
         event.waitUntil(
 
             clients.openWindow(
-                "./index.html"
+
+                event.notification.data.url
+
             )
 
         );
@@ -259,18 +319,61 @@ self.addEventListener(
 
 /*
 =========================================
-BACKGROUND SYNC
+MESSAGE EVENT
 =========================================
 */
 
 self.addEventListener(
-    "sync",
+    "message",
     event => {
 
+        if (
+            event.data &&
+            event.data.type ===
+            "SKIP_WAITING"
+        ) {
+
+            self.skipWaiting();
+
+        }
+
+    }
+);
+
+/*
+=========================================
+ONLINE STATUS
+=========================================
+*/
+
+self.addEventListener(
+    "online",
+    () => {
+
         console.log(
-            "🔄 Sync:",
-            event.tag
+            "🌐 Online"
         );
 
     }
+);
+
+/*
+=========================================
+OFFLINE STATUS
+=========================================
+*/
+
+self.addEventListener(
+    "offline",
+    () => {
+
+        console.log(
+            "📴 Offline"
+        );
+
+    }
+);
+
+console.log(
+    "✅ SW v3 Loaded"
 );
