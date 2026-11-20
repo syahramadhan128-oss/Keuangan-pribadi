@@ -2,10 +2,11 @@
 <html lang="id">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Keuangan Pribadi</title>
+    <title>Keuangan Pribadi v3.0</title>
 
     <!-- PWA -->
     <link rel="manifest" href="./manifest.json">
@@ -14,8 +15,9 @@
     <!-- CSS -->
     <link rel="stylesheet" href="./assets/css/style.css">
 
-    <!-- Chart -->
+    <!-- ChartJS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body>
@@ -24,11 +26,16 @@
 
     <!-- HEADER -->
     <div class="header">
+
         <h1>💰 Keuangan Pribadi</h1>
-        <p>Dashboard Monitoring Keuangan</p>
+
+        <p>
+            Dashboard Monitoring Keuangan
+        </p>
+
     </div>
 
-    <!-- FILTER -->
+    <!-- FILTER BULAN -->
     <div class="card">
 
         <h3>📅 Filter Bulan</h3>
@@ -42,15 +49,18 @@
     <!-- SALDO -->
     <div class="card saldo-card">
 
-        <h3>Saldo Saat Ini</h3>
+        <h3>💵 Saldo Saat Ini</h3>
 
         <h2 id="saldo">
+
             Rp 0
+
         </h2>
 
     </div>
 
     <!-- SUMMARY -->
+
     <div class="summary">
 
         <div class="summary-card income-card">
@@ -58,7 +68,9 @@
             <h3>Pemasukan</h3>
 
             <p id="totalMasuk">
+
                 Rp 0
+
             </p>
 
         </div>
@@ -68,7 +80,9 @@
             <h3>Pengeluaran</h3>
 
             <p id="totalKeluar">
+
                 Rp 0
+
             </p>
 
         </div>
@@ -78,7 +92,9 @@
             <h3>Total Transaksi</h3>
 
             <p id="jumlahTransaksi">
+
                 0
+
             </p>
 
         </div>
@@ -88,14 +104,37 @@
             <h3>Health Score</h3>
 
             <p id="healthScore">
+
                 0/100
+
             </p>
 
         </div>
 
     </div>
 
+    <!-- CLOUD SYNC -->
+
+    <div class="card">
+
+        <h3>☁️ Sinkronisasi Cloud</h3>
+
+        <p id="syncStatus">
+
+            Belum Sinkron
+
+        </p>
+
+        <button onclick="syncTransaksi()">
+
+            🔄 Sinkronkan Data
+
+        </button>
+
+    </div>
+
     <!-- INSIGHT -->
+
     <div class="card">
 
         <h3>📈 Insight Keuangan</h3>
@@ -109,6 +148,7 @@
     </div>
 
     <!-- GRAFIK -->
+
     <div class="card">
 
         <h3>📊 Pengeluaran per Kategori</h3>
@@ -117,10 +157,76 @@
 
     </div>
 
-    <!-- TRANSAKSI TERAKHIR -->
+    <!-- RINGKASAN KATEGORI -->
+
     <div class="card">
 
-        <h3>📋 5 Transaksi Terakhir</h3>
+        <h3>📋 Ringkasan Pengeluaran per Kategori</h3>
+
+        <div id="kategoriSummary">
+
+            Belum ada data
+
+        </div>
+
+    </div>
+
+    <!-- TARGET TABUNGAN -->
+
+    <div class="card">
+
+        <h3>🎯 Target Tabungan</h3>
+
+        <div class="progress">
+
+            <div
+                class="progress-bar"
+                id="dashboardTargetBar">
+
+            </div>
+
+        </div>
+
+        <div id="dashboardTargetInfo">
+
+            Belum ada target tabungan
+
+        </div>
+
+    </div>
+
+    <!-- IMPORT EXPORT -->
+
+    <div class="card">
+
+        <h3>📂 Import / Export Data</h3>
+
+        <input
+            type="file"
+            id="excelFile"
+            accept=".xlsx">
+
+        <br><br>
+
+        <button onclick="handleImportExcel()">
+
+            📥 Import Excel
+
+        </button>
+
+        <button onclick="exportExcel()">
+
+            📤 Export Excel
+
+        </button>
+
+    </div>
+
+    <!-- TRANSAKSI TERAKHIR -->
+
+    <div class="card">
+
+        <h3>📜 5 Transaksi Terakhir</h3>
 
         <div id="lastTransactions">
 
@@ -137,35 +243,58 @@
 <div class="bottom-nav">
 
     <a href="index.html" class="active">
-        🏠
-        <br>
+
+        🏠<br>
         Dashboard
+
     </a>
 
     <a href="transaksi.html">
-        ➕
-        <br>
+
+        ➕<br>
         Transaksi
+
     </a>
 
     <a href="laporan.html">
-        📊
-        <br>
+
+        📊<br>
         Laporan
+
     </a>
 
     <a href="profil.html">
-        ⚙️
-        <br>
+
+        ⚙️<br>
         Profil
+
     </a>
 
 </div>
 
-<!-- JS -->
+<!-- FIREBASE -->
 
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+<!-- EXCEL -->
+
+<script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+
+<!-- CORE -->
+
+<script src="./assets/js/firebase-config.js"></script>
+<script src="./assets/js/auth.js"></script>
 <script src="./assets/js/storage.js"></script>
 <script src="./assets/js/app.js"></script>
+
+<!-- FEATURE -->
+
+<script src="./assets/js/kategori.js"></script>
+<script src="./assets/js/sync.js"></script>
+<script src="./assets/js/excel-import.js"></script>
+<script src="./assets/js/excel-export.js"></script>
 <script src="./assets/js/dashboard.js"></script>
 
 <!-- SERVICE WORKER -->
@@ -174,22 +303,34 @@
 
 if ("serviceWorker" in navigator) {
 
-    window.addEventListener("load", () => {
+    window.addEventListener(
+        "load",
+        () => {
 
-        navigator.serviceWorker
-            .register("./sw.js")
-            .then(() => {
-                console.log("✅ Service Worker Registered");
-            })
-            .catch(error => {
-                console.error(error);
-            });
+            navigator.serviceWorker
+                .register("./sw.js")
+                .then(() => {
 
-    });
+                    console.log(
+                        "✅ Service Worker Registered"
+                    );
+
+                })
+                .catch(error => {
+
+                    console.error(
+                        error
+                    );
+
+                });
+
+        }
+    );
 
 }
 
 </script>
 
 </body>
+
 </html>
