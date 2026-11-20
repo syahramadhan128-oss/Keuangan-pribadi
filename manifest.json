@@ -1,8 +1,8 @@
 {
-  "id": "./",
-  "name": "Keuangan Pribadi",
+  "id": "/",
+  "name": "Keuangan Pribadi v3.0",
   "short_name": "Keuangan",
-  "description": "Aplikasi pencatatan, monitoring, dan analisis keuangan pribadi berbasis Progressive Web App (PWA).",
+  "description": "Aplikasi pencatatan, monitoring, analisis, sinkronisasi cloud, dan laporan keuangan pribadi.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -10,7 +10,12 @@
   "lang": "id-ID",
   "background_color": "#f0fdf4",
   "theme_color": "#16a34a",
-
+  "categories": [
+    "finance",
+    "productivity",
+    "business"
+  ],
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "./assets/icons/icon-192.png",
@@ -25,12 +30,11 @@
       "purpose": "any maskable"
     }
   ],
-
   "shortcuts": [
     {
       "name": "Tambah Transaksi",
       "short_name": "Transaksi",
-      "description": "Tambah transaksi baru",
+      "description": "Input transaksi baru",
       "url": "./transaksi.html",
       "icons": [
         {
@@ -65,9 +69,21 @@
           "type": "image/png"
         }
       ]
+    },
+    {
+      "name": "Login",
+      "short_name": "Login",
+      "description": "Login Google dan PIN",
+      "url": "./login.html",
+      "icons": [
+        {
+          "src": "./assets/icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
   ],
-
   "screenshots": [
     {
       "src": "./assets/screenshots/dashboard.png",
