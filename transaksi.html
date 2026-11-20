@@ -2,83 +2,206 @@
 <html lang="id">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Tambah Transaksi</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#16a34a">
+    <title>
 
-    <link rel="stylesheet" href="assets/css/style.css">
+        Tambah Transaksi
+
+    </title>
+
+    <link
+        rel="manifest"
+        href="manifest.json">
+
+    <meta
+        name="theme-color"
+        content="#16a34a">
+
+    <link
+        rel="stylesheet"
+        href="assets/css/style.css">
+
 </head>
 
 <body>
 
 <div class="container">
 
+    <!-- HEADER -->
+
     <div class="header">
-        <h1>➕ Tambah Transaksi</h1>
-        <p>Kelola pemasukan dan pengeluaran</p>
-    </div>
 
-    <!-- Statistik -->
+        <h1>
 
-    <div class="card">
+            ➕ Tambah Transaksi
 
-        <h3>📊 Statistik</h3>
+        </h1>
 
         <p>
-            Total Transaksi :
-            <b id="jumlahTransaksi">0</b>
+
+            Kelola pemasukan dan pengeluaran
+
         </p>
 
     </div>
 
-    <!-- Form -->
+    <!-- CLOUD -->
+
+    <div class="card">
+
+        <h3>
+
+            ☁️ Sinkronisasi Cloud
+
+        </h3>
+
+        <p id="syncStatus">
+
+            Belum Sinkron
+
+        </p>
+
+        <button
+            onclick="syncTransaksi()">
+
+            🔄 Sinkronkan Data
+
+        </button>
+
+    </div>
+
+    <!-- STATISTIK -->
+
+    <div class="card">
+
+        <h3>
+
+            📊 Statistik
+
+        </h3>
+
+        <p>
+
+            Total Transaksi :
+            <b id="jumlahTransaksi">
+
+                0
+
+            </b>
+
+        </p>
+
+    </div>
+
+    <!-- IMPORT EXCEL -->
+
+    <div class="card">
+
+        <h3>
+
+            📂 Import Excel
+
+        </h3>
+
+        <input
+            type="file"
+            id="excelFile"
+            accept=".xlsx">
+
+        <br><br>
+
+        <button
+            onclick="importExcel(
+                document.getElementById(
+                    'excelFile'
+                ).files[0]
+            )">
+
+            📥 Import Excel
+
+        </button>
+
+    </div>
+
+    <!-- FORM -->
 
     <div class="card">
 
         <div class="info-box">
 
-            Masukkan transaksi pemasukan atau pengeluaran.
+            Masukkan transaksi pemasukan
+            atau pengeluaran.
 
         </div>
 
         <form id="formTransaksi">
 
-            <label>Tanggal</label>
+            <label>
+
+                Tanggal
+
+            </label>
 
             <input
                 type="date"
                 id="tanggal"
                 required>
 
-            <label>Jenis Transaksi</label>
+            <label>
+
+                Jenis Transaksi
+
+            </label>
 
             <select id="jenis">
 
                 <option value="Masuk">
+
                     📈 Pemasukan
+
                 </option>
 
                 <option value="Keluar">
+
                     📉 Pengeluaran
+
                 </option>
 
             </select>
 
-            <label>Kategori</label>
+            <label>
 
-            <select id="kategori"></select>
+                Kategori
 
-            <label>Deskripsi</label>
+            </label>
+
+            <select id="kategori">
+
+            </select>
+
+            <label>
+
+                Deskripsi
+
+            </label>
 
             <textarea
                 id="deskripsi"
-                placeholder="Contoh: Gaji Bulanan"></textarea>
+                placeholder="Contoh: Gaji Bulanan">
 
-            <label>Nominal</label>
+            </textarea>
+
+            <label>
+
+                Nominal
+
+            </label>
 
             <input
                 type="number"
@@ -95,7 +218,7 @@
 
             </button>
 
-            <!-- Mode Edit -->
+            <!-- EDIT MODE -->
 
             <div
                 id="editActions"
@@ -138,31 +261,43 @@
 
         <div
             id="status"
-            class="status"></div>
+            class="status">
+
+        </div>
 
     </div>
 
-    <!-- Search -->
+    <!-- SEARCH -->
 
     <div class="card">
 
-        <h3>🔍 Cari Transaksi</h3>
+        <h3>
+
+            🔍 Cari Transaksi
+
+        </h3>
 
         <input
             type="text"
             id="searchTransaksi"
-            placeholder="Cari kategori atau deskripsi...">
+            placeholder="Cari kategori atau deskripsi">
 
     </div>
 
-    <!-- Daftar -->
+    <!-- LIST -->
 
     <div class="card">
 
-        <h3>📋 Daftar Transaksi</h3>
+        <h3>
 
-        <p style="margin-bottom:10px;">
-            Klik transaksi untuk mengedit.
+            📋 Daftar Transaksi
+
+        </h3>
+
+        <p>
+
+            Klik transaksi untuk edit.
+
         </p>
 
         <div id="daftarTransaksi">
@@ -175,58 +310,99 @@
 
 </div>
 
-<!-- Bottom Navigation -->
+<!-- BOTTOM NAV -->
 
 <div class="bottom-nav">
 
     <a href="index.html">
-        🏠
-        <br>
+
+        🏠<br>
         Dashboard
+
     </a>
 
-    <a href="transaksi.html" class="active">
-        ➕
-        <br>
+    <a
+        href="transaksi.html"
+        class="active">
+
+        ➕<br>
         Transaksi
+
     </a>
 
     <a href="laporan.html">
-        📊
-        <br>
+
+        📊<br>
         Laporan
+
     </a>
 
     <a href="profil.html">
-        ⚙️
-        <br>
+
+        ⚙️<br>
         Profil
+
     </a>
 
 </div>
 
-<!-- Javascript -->
+<!-- FIREBASE -->
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+<!-- CORE -->
+
+<script src="assets/js/firebase-config.js"></script>
 
 <script src="assets/js/storage.js"></script>
+
 <script src="assets/js/auth.js"></script>
+
 <script src="assets/js/app.js"></script>
+
+<!-- FEATURES -->
+
+<script src="assets/js/sync.js"></script>
+
+<script src="assets/js/kategori.js"></script>
+
+<script src="assets/js/excel-import.js"></script>
+
 <script src="assets/js/transaksi.js"></script>
 
-<!-- Service Worker -->
+<!-- SERVICE WORKER -->
 
 <script>
 
-if ("serviceWorker" in navigatorster("./sw.js")
-            .then(() => {
-                console.log(
-                    "✅ Service Worker Registered"
-                );
-            })
-            .catch(error => {
-                console.error(error);
-            });
+if ("serviceWorker" in navigator) {
 
-    });
+    window.addEventListener(
+        "load",
+        () => {
+
+            navigator.serviceWorker
+                .register("./sw.js")
+                .then(() => {
+
+                    console.log(
+                        "✅ Service Worker Registered"
+                    );
+
+                })
+                .catch(error => {
+
+                    console.error(
+                        error
+                    );
+
+                });
+
+        }
+    );
 
 }
 
